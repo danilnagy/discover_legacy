@@ -30,7 +30,7 @@ The repository includes several example files which you can use to test Discover
 
 Start by creating a new Rhino project. Then type 'Grasshopper' to launch the Grasshopper window and load in the `template.gh` file. 
 
-[tutorial1-1](docs/tutorial1-1.png)
+![tutorial1-1](docs/tutorial1-1.png)
 
 
 
