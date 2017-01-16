@@ -5,7 +5,7 @@
 2. Various functionalities are broken up into separate script files whenever possible to facilitate learning of all the components that go into modern stochastic metaheuristic algorithms.
 3. All code is written with an emphasis on simplicity and readability. The goal is not to develop the fastest or best performing algorithms or code, but to present the functionalities in a way that facilitates learning and accessibility to students and designers with only basic familiarity with coding and programming languages.
 
-## Overview
+## 1. Overview
 
 This project consists of two parts:
 
@@ -20,19 +20,35 @@ With the CAD model open, an optimization job is started by executing a Python sc
 
 Each job folder also contains an "index.html" file, which is used to launch the *Explore* interface. The file can be directly opened in the Firefox browser (by right-clicking and selecting Open with Firefox), or viewed in any browser using a local server. To make this easier, each job folder also contains a Bash script called `explorer.sh` which will automatically start a local server using Python, and launch *Explorer* in your default browser. If you do not have Bash installed, you can install [git](https://git-scm.com/downloads) which comes with a version of Bash.
 
-## Getting started
+## 2. Getting started
 
 To start using *Discover*, all you need is a local copy of this repository. If you are familiar with GitHub, you can fork this repository and clone it to a local folder of your choice. If you don't want to use Github you can simply download the repository by clicking on the green "Clone or download" button above and clicking on "Download ZIP". Then unzip the files to a local folder of your choice.
 
-The repository includes several example files which you can use to test Discover, or modify for your own projects. Each project must have as a minimum a `.gh` Grasshopper file which describes the parametric model, and a `.py` Python script which describes and runs the optimization job. In order for *Discover* to work, both of these files must stay in the main repository folder. The repository includes two template files, `template.gh` and `run-template.py` which you can use as a starting point for your own projects. 
+The repository includes several example files which you can use to test Discover, or modify for your own projects. Each project must have as a minimum a `.gh` Grasshopper file which describes the parametric model, and a `.py` Python script which describes and runs the optimization job. In order for *Discover* to work, both of these files must stay in the main repository folder. The repository includes two template files, `template.gh` and `run-template.py` which you can use as a starting point for your own projects.
 
-## Tutorial 1 - setting up a job
+These example files rely on a number of Grasshopper libraries which you must install before using the files. You can download the files from the linked websites (you will have to make an account) and follow instructions to install them on your computer:
+- [GHPython](http://www.food4rhino.com/app/ghpython) - (required) allows the Grasshopper file to communicate with *Discover*
+- [Karamba](http://www.food4rhino.com/app/karamba) - (optional) structural FEA solver used in some example files
+
+## 3. Setting up the model
 
 Start by creating a new Rhino project. Then type 'Grasshopper' to launch the Grasshopper window and load in the `template.gh` file. 
 
 ![tutorial1-1](docs/tutorial1-1.png)
 
+This template file contains a number of nodes that allow it to work with *Discover*. The easiest way to make your Grasshopper file work with *Discover* is to start with this template file. Alternatively, you can also copy and paste these nodes into an existing file.
 
+The first set of nodes [1 in image above] listens for input commands from *Discover*. When an optimization is running, a list of inputs for each design will be loaded into the 'File' node, and the 'BANG!' node splits them into separate pieces of data that you can plug in as inputs into your model. There is also an additional Python node for unpacking 'series' or 'sequence' type inputs into your model (more on these input types later).
+
+The second set of nodes [2] will load in inputs from a specific design in a previous optimization job. You must supply both a job name and a design ID for the node to work.
+
+The third set of nodes [3] gathers the outputs from your model and sends them to discover. You should connect every output into a separate input of the 'Merge' node.
+
+The four set of nodes [4] controls the automated exporting of screenshots for each design during an optimization. You don't have to connect anything to these nodes, but have to have them somewhere on your canvas for the screenshot feature to work.
+
+Let's add some nodes to this file to define a simple parametric box model with three input parameters to define the box's length, width, and height, and two outputs that measure the box's surface area and volume. For now we can use sliders to specify the inputs so that we can test the model. We will also connect the two output values to the 'Merge' node so that they can be passed to Discover.
+
+![tutorial1-2](docs/tutorial1-2.png)
 
 ## Input types
 
