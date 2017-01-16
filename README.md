@@ -96,6 +96,20 @@ Now run the script again, which should start the job. You should see information
 
 ## 6. Exploring results
 
+Every time you start a new job in *Discover*, it will create a new folder combining the job name, the date, and current time to make sure there are never any duplicate folders. Here is the folder for the job we just ran:
+
+![tutorial1-7](docs/tutorial1-7.png)
+
+Inside each job folder you will see a standard set of files that allow you to explore the results of the job. If you have enabled the screenshots feature, you will see an `images` folder containing an image for each design explored. You will also see a `lib` folder which contains the javascript libraries needed to run the explorer. 
+
+In the main folder you should see a file called `results.tsv`, which is the database of each design explored during the job. This is a spreadsheet document formatted with designs along the rows, and information about each design such as its unique ID, generation number, and all of it's inputs and outputs along the columns. The `.tsv` extension stands for 'tab separated values', meaning that values in different columns are separated by a 'tab' character. You can open this file directly in a text editor or spreadsheet editor like Microsoft Excel to look through the designs.
+
+Finally, each job folder also contains "index.html" file, which is used to launch the *Explore* interface. The file can be directly opened in the Firefox browser (by right-clicking and selecting Open with Firefox), or viewed in any browser using a local server. To make this easier, each job folder also contains a Bash script called `explorer.sh` which will automatically start a local server using Python, and launch *Explorer* in your default browser. If you do not have Bash installed, you can install [git](https://git-scm.com/downloads) which comes with a version of Bash.
+
+Start the *Explore* interface by either opening the `index.html` file in Firefox or double-clicking on the explorer.sh bash script. This should launch the interface in the web browser:
+
+![tutorial1-8](docs/tutorial1-8.png)
+
 
 
 ## Input types
@@ -104,7 +118,7 @@ Now run the script again, which should start the job. You should see information
 
 ## Output types
 
-## GA options
+## Supported algorithms
 
 ## License
 
