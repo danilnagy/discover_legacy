@@ -46,9 +46,37 @@ The third set of nodes [3] gathers the outputs from your model and sends them to
 
 The four set of nodes [4] controls the automated exporting of screenshots for each design during an optimization. You don't have to connect anything to these nodes, but have to have them somewhere on your canvas for the screenshot feature to work.
 
-Let's add some nodes to this file to define a simple parametric box model with three input parameters to define the box's length, width, and height, and two outputs that measure the box's surface area and volume. For now we can use sliders to specify the inputs so that we can test the model. We will also connect the two output values to the 'Merge' node so that they can be passed to Discover.
+Let's add some nodes to this file to define a simple parametric box model with three input parameters to define the box's length, width, and height, and two outputs that measure the box's surface area and volume. For now we can use sliders to specify the inputs so that we can test the model. We will also connect the two output values to the `Merge` node so that they can be passed to Discover. Make sure you you right click on each input of the `Merge` node and select 'Flatten' to ensure that the model outputs do not get placed on different data branches and that the order of the outputs is maintained (you should see an arrow pointing down next to each of the inputs into the `Merge` node).
 
 ![tutorial1-2](docs/tutorial1-2.png)
+
+## 4. Setting up the job
+
+Now open the 'run-template.py' file in a text editor or IDE of your choice. I recommend using [Sublime 2](http://www.sublimetext.com/2), which is a simple, free, and cross-platform text editor which supports syntax highlighting, autocomplete, and can run python scripts directly in the editing window.
+
+![tutorial1-3](docs/tutorial1-3.png)
+
+This file shows the basic structure for specifying and running an optimization job with Discover. The first line [line 1 above] imports the job library from the 'src' folder. The second part [lines 3-29] specifies all necessary options for running the job, including the data types for the input and output parameters used by the model, as well as options for the general job and the specific search algorithm. 
+
+The template file contains example code for the different data types and options supported by Discover, which you can modify according to your project's needs. Let's modify this definition to specify three continuous input parameters for our box model, as well as two objectives for the surface area and volume of the box. In this case we want to minimize surface area while maximizing volume.
+
+Below the job definition are two lines of code [lines 31 & 32] that run the job in Discover. The first line uses the job description to generate a sample input file that can be used to test your Grasshopper setup. The second line runs the actual optimization job. Both of these lines are commented out in the template file so nothing will run by default.
+
+Uncomment line 31 of the code that says:
+
+```python
+job.createInputFile(jobDescription)
+```
+
+And run the script to generate a sample input file. You can run the script in Sublime by going to Tools -> Build in the menu bar or by pressing `Ctrl+B`.
+
+
+
+## 5. Running the job
+
+
+
+## 6. Exploring results
 
 ## Input types
 
