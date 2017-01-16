@@ -52,7 +52,7 @@ Let's add some nodes to this file to define a simple parametric box model with t
 
 ## 4. Setting up the job
 
-Now open the 'run-template.py' file in a text editor or IDE of your choice. I recommend using [Sublime 2](http://www.sublimetext.com/2), which is a simple, free, and cross-platform text editor which supports syntax highlighting, autocomplete, and can run python scripts directly in the editing window.
+Now open the `run-template.py` file in a text editor or IDE of your choice. I recommend using [Sublime 2](http://www.sublimetext.com/2), which is a simple, free, and cross-platform text editor which supports syntax highlighting, autocomplete, and can run python scripts directly in the editing window.
 
 ![tutorial1-3](docs/tutorial1-3.png)
 
@@ -70,7 +70,7 @@ Uncomment the line of code that says:
 job.createInputFile(jobDescription)
 ```
 
-Now run the script to generate a sample input file. You can run the script in Sublime by going to Tools -> Build in the menu bar or by pressing 'Ctrl+B'.
+by removing the `#` symbol at the front of the line. In Sublime, you can also press 'Ctrl+/' to comment and un-comment lines. Now run the script to generate a sample input file. You can run the script in Sublime by going to Tools -> Build in the menu bar or by pressing 'Ctrl+B'.
 
 If you now go back to the Grasshopper file you will see that the 'File' node is no longer red because it is able to read the sample input file we just created. You should also see the three input values populating the `DATA IN` panel. To split this data into different streams right-click on the `BANG!` node and select 'Match outputs'. This will create three output nodes, one for each input data. Finally, connect the three data outputs to the three inputs of the `Pt` node that define the box dimensions. Since we are not using a 'series' or 'sequence' type input variable we do not need to use the additional Python node to unpack them. The Grasshopper file is now ready for optimization with *Discover*, you can save it and keep it open in the background during the next steps.
 
@@ -78,7 +78,19 @@ If you now go back to the Grasshopper file you will see that the 'File' node is 
 
 ## 5. Running the job
 
+Now that the model is set up and open in Grasshopper, we can run the optimization in *Discover*. Go back to the `run-template.py` file we worked on earlier. Now comment out the line that says
 
+```python
+job.createInputFile(jobDescription)
+```
+
+by placing a `#` in front of it and un-comment the following line that says
+
+```python
+job.run(jobDescription)
+```
+
+Now run the script again. The optimization has started, and you should see information about the progress of the current job being displayed at the bottom of the Sublime window. If you go back to the Rhino/Grasshopper window you will also 
 
 ## 6. Exploring results
 
