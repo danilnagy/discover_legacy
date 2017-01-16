@@ -60,15 +60,17 @@ This file shows the basic structure for specifying and running an optimization j
 
 The template file contains example code for the different data types and options supported by Discover, which you can modify according to your project's needs. Let's modify this definition to specify three continuous input parameters for our box model, as well as two objectives for the surface area and volume of the box. In this case we want to minimize surface area while maximizing volume.
 
-Below the job definition are two lines of code [lines 31 & 32] that run the job in Discover. The first line uses the job description to generate a sample input file that can be used to test your Grasshopper setup. The second line runs the actual optimization job. Both of these lines are commented out in the template file so nothing will run by default.
+![tutorial1-4](docs/tutorial1-4.png)
 
-Uncomment line 31 of the code that says:
+Below the job definition are two lines of code that run the job in Discover. The first line uses the job description to generate a sample input file that can be used to test your Grasshopper setup. The second line runs the actual optimization job. Both of these lines are commented out in the template file so nothing will run by default.
+
+Uncomment the line of code that says:
 
 ```python
 job.createInputFile(jobDescription)
 ```
 
-And run the script to generate a sample input file. You can run the script in Sublime by going to Tools -> Build in the menu bar or by pressing `Ctrl+B`.
+Now run the script to generate a sample input file. You can run the script in Sublime by going to Tools -> Build in the menu bar or by pressing 'Ctrl+B'.
 
 
 
