@@ -14,11 +14,9 @@ This project consists of two parts:
 
 ![diagram](docs/diagram.png)
 
-Although *Discover* can be used as a general optimization tool, it is specifically devised for physical design problems, and is thus designed to run alongside a parametric CAD platform such as Rhino/Grasshopper. The Python library communicates with the CAD model using input and output text files that it writes to the local directory. This repository includes example files for Rhino/Grasshopper, but any CAD platform can be used as long as it can write and react to changes in the local text files.
+Although *Discover* can be used as a general optimization tool, it is specifically devised for physical design problems, and is thus designed to run alongside a parametric CAD platform such as Rhino/Grasshopper. The Python library communicates with the CAD model using input and output text files that it writes to the local directory. This repository includes example files for Rhino/Grasshopper, but any CAD platform can be used as long as it can write and respond to changes in the local text files.
 
-With the CAD model open, an optimization job is started by executing a Python script that launches the job handler and passes to it all the relevant information about the job, including the inputs used by the model, the objectives of the optimization, and any relevant options. When a job is started a subfolder is automatically created to store all the information of that job, including a dataset of all designs explored and optionally a folder of screenshots for each design.
-
-Each job folder also contains an "index.html" file, which is used to launch the *Explore* interface. The file can be directly opened in the Firefox browser (by right-clicking and selecting Open with Firefox), or viewed in any browser using a local server. To make this easier, each job folder also contains a Bash script called `explorer.sh` which will automatically start a local server using Python, and launch *Explorer* in your default browser. If you do not have Bash installed, you can install [git](https://git-scm.com/downloads) which comes with a version of Bash.
+With the CAD model open, an optimization job is started by executing a Python script that launches the job handler and passes to it all the relevant information about the job, including the inputs used by the model, the objectives of the optimization, and any relevant options. When a job is started a subfolder is automatically created to store all the information of that job, including a dataset of all designs analyzed and optionally a folder of screenshots for each design. Each job folder also contains an "index.html" file which launches the *Explore* interface for exploring the design space and viewing specific designs analyzed during the optimization job.
 
 ## 2. Getting started
 
@@ -110,7 +108,20 @@ Start the *Explore* interface by either opening the `index.html` file in Firefox
 
 ![tutorial1-8](docs/tutorial1-8.png)
 
+This interface allows you to explore the 'design space' of your model by looking at all the designs explored during the optimization job according to different pieces of data. On the left side is the main scatter plot window which shows each feasible design as a solid circle, and each non-feasible design as a hollow box. Non-feasible designs will only occur if you are using constraints in your job setup, so in this case we only have circles.  The scatter plot interface has very flexible pan and zoom capabilities. You can pan and zoom along both axes by clicking and dragging and using your mouse's scroll wheel anywhere in the scatter plot window. You can also pan and zoom along a single axis at a time by clicking and dragging or scrolling over the axis label text.
 
+The four text boxes immediately to the right of the scatter plot are automatically loaded with all the data for each design. Here you can select which data will be represented along the four dimensions of the scatter plot (the position of each circle on the x and y axis, its color, and its relative size).
+
+As you hover over each circle you will get a tooltip which shows the design's ID and its screenshot (only if you enabled this feature for the job). You can click on the circle to select the design, which will put a dark outline around it and will place that design in the text box on the far right.
+
+Along the bottom row are a series of buttons which are described below:
+
+- *Reload data* - not currently implemented
+- *Isolate optimal designs* - Isolates only the designs which are not dominated by any other designs in the set. If you are optimizing for a single objective, there will be one single designs which is dominant for that objective. With multiple objectives, however, you will typically get a range of optimal designs which perform better in some objectives and worse in others. Isolating these designs gives you a better picture of the tradeoffs between your optimization goals, and will help you make further decisions in choosing the final design. For a further discussion of optimality in multi-objective optimization problems you can consult [this article](https://en.wikipedia.org/wiki/Pareto_efficiency).
+- *Isolate selected designs* - this isolates only the designs currently selected
+- *Reset zoom* - resets the pan and zoom of the scatterplot
+- The three *Reset* buttons reset the selection for the color and size dimensions (in case you want to keep the color or size of circles in the scatter plot constant) as well as the pool of selected designs
+- *Export* - not currently implemented
 
 ## Input types
 
