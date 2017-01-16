@@ -23,5 +23,5 @@ jobDescription = {
 		}
 	}
 
-job.createInputFile(jobDescription)
-# job.run(jobDescription)
+# job.createInputFile(jobDescription)
+job.run(jobDescription)
