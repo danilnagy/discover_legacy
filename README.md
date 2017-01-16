@@ -72,7 +72,9 @@ job.createInputFile(jobDescription)
 
 Now run the script to generate a sample input file. You can run the script in Sublime by going to Tools -> Build in the menu bar or by pressing 'Ctrl+B'.
 
+If you now go back to the Grasshopper file you will see that the 'File' node is no longer red because it is able to read the sample input file we just created. You should also see the three input values populating the `DATA IN` panel. To split this data into different streams right-click on the `BANG!` node and select 'Match outputs'. This will create three output nodes, one for each input data. Finally, connect the three data outputs to the three inputs of the `Pt` node that define the box dimensions. Since we are not using a 'series' or 'sequence' type input variable we do not need to use the additional Python node to unpack them. The Grasshopper file is now ready for optimization with *Discover*, you can save it and keep it open in the background during the next steps.
 
+![tutorial1-5](docs/tutorial1-5.png)
 
 ## 5. Running the job
 
