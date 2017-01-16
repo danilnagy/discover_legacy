@@ -1,20 +1,15 @@
 from src import job
 
 jobDescription = {
-	"jobName": "untitled",
+	"jobName": "box",
 	"inputsDef": [
-		# { "name": "input1", "type": "continuous", "range": [0,10]},
-		# { "name": "input2", "type": "categorical", "num": 5},
-		# { "name": "input3", "type": "series", "length": 25, "depth": 3, "mutationRate": 0.5},
-		# { "name": "input4", "type": "sequence", "length": 10, "mutationRate": 0.3}
+		{ "name": "length", "type": "continuous", "range": [0,10]},
+		{ "name": "width", "type": "continuous", "range": [0,10]},
+		{ "name": "height", "type": "continuous", "range": [0,10]}
 		],
 	"outputsDef": [
-		# { "name": "objective1", "type": "objective", "goal": "min"},
-		# { "name": "objective2", "type": "objective", "goal": "max"},
-		# { "name": "constraint1", "type": "constraint", "goal": "less than 1.0" }
-		# { "name": "constraint2", "type": "constraint", "goal": "greater than 0" }
-		# { "name": "constraint3", "type": "constraint", "goal": "equals 0.005" }
-
+		{ "name": "surface area", "type": "objective", "goal": "min"},
+		{ "name": "volume", "type": "objective", "goal": "max"}
 		],
 	"algo": "GA",
 	"algoOptions": {
@@ -28,5 +23,5 @@ jobDescription = {
 		}
 	}
 
-# job.createInputFile(jobDescription)
-job.run(jobDescription)
+job.createInputFile(jobDescription)
+# job.run(jobDescription)
