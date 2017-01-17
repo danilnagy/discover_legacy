@@ -14,11 +14,9 @@ This project consists of two parts:
 
 ![diagram](docs/diagram.png)
 
-Although *Discover* can be used as a general optimization tool, it is specifically devised for physical design problems, and is thus designed to run alongside a parametric CAD platform such as Rhino/Grasshopper. The Python library communicates with the CAD model using input and output text files that it writes to the local directory. This repository includes example files for Rhino/Grasshopper, but any CAD platform can be used as long as it can write and react to changes in the local text files.
+Although *Discover* can be used as a general optimization tool, it is specifically devised for physical design problems, and is thus designed to run alongside a parametric CAD platform such as Rhino/Grasshopper. The Python library communicates with the CAD model using input and output text files that it writes to the local directory. This repository includes example files for Rhino/Grasshopper, but any CAD platform can be used as long as it can write and respond to changes in the local text files.
 
-With the CAD model open, an optimization job is started by executing a Python script that launches the job handler and passes to it all the relevant information about the job, including the inputs used by the model, the objectives of the optimization, and any relevant options. When a job is started a subfolder is automatically created to store all the information of that job, including a dataset of all designs explored and optionally a folder of screenshots for each design.
-
-Each job folder also contains an "index.html" file, which is used to launch the *Explore* interface. The file can be directly opened in the Firefox browser (by right-clicking and selecting Open with Firefox), or viewed in any browser using a local server. To make this easier, each job folder also contains a Bash script called `explorer.sh` which will automatically start a local server using Python, and launch *Explorer* in your default browser. If you do not have Bash installed, you can install [git](https://git-scm.com/downloads) which comes with a version of Bash.
+With the CAD model open, an optimization job is started by executing a Python script that launches the job handler and passes to it all the relevant information about the job, including the inputs used by the model, the objectives of the optimization, and any relevant options. When a job is started a subfolder is automatically created to store all the information of that job, including a dataset of all designs analyzed and optionally a folder of screenshots for each design. Each job folder also contains an "index.html" file which launches the *Explore* interface for exploring the design space and viewing specific designs analyzed during the optimization job.
 
 ## 2. Getting started
 
@@ -110,15 +108,50 @@ Start the *Explore* interface by either opening the `index.html` file in Firefox
 
 ![tutorial1-8](docs/tutorial1-8.png)
 
+This interface allows you to explore the 'design space' of your model by looking at all the designs explored during the optimization job according to different pieces of data. On the left side is the main scatter plot window which shows each feasible design as a solid circle, and each non-feasible design as a hollow box. Non-feasible designs will only occur if you are using constraints in your job setup, so in this case we only have circles.  The scatter plot interface has very flexible pan and zoom capabilities. You can pan and zoom along both axes by clicking and dragging and using your mouse's scroll wheel anywhere in the scatter plot window. You can also pan and zoom along a single axis at a time by clicking and dragging or scrolling over the axis label text.
 
+The four text boxes immediately to the right of the scatter plot are automatically loaded with all the data for each design. Here you can select which data will be represented along the four dimensions of the scatter plot (the position of each circle on the x and y axis, its color, and its relative size).
+
+As you hover over each circle you will get a tooltip which shows the design's ID and its screenshot (only if you enabled this feature for the job). You can click on the circle to select the design, which will put a dark outline around it and will place that design in the text box on the far right.
+
+Along the bottom row are a series of buttons which are described below:
+
+- *Reload data* - not currently implemented
+- *Isolate optimal designs* - Isolates only the designs which are not dominated by any other designs in the set. If you are optimizing for a single objective, there will be one single designs which is dominant for that objective. With multiple objectives, however, you will typically get a range of optimal designs which perform better in some objectives and worse in others. Isolating these designs gives you a better picture of the tradeoffs between your optimization goals, and will help you make further decisions in choosing the final design. For a further discussion of optimality in multi-objective optimization problems you can consult [this article](https://en.wikipedia.org/wiki/Pareto_efficiency).
+- *Isolate selected designs* - this isolates only the designs currently selected
+- *Reset zoom* - resets the pan and zoom of the scatterplot
+- The three *Reset* buttons reset the selection for the color and size dimensions (in case you want to keep the color or size of circles in the scatter plot constant) as well as the pool of selected designs
+- *Export* - not currently implemented
 
 ## Input types
 
+*Discover* is set up to handle different types of input data according to what is needed by the CAD model. Four types are currently implemented as described below, although more types can be integrated by providing the necessary operators for the GA algorithm (more documentation will be provided for this in the future).
 
+- **Continuous** - This describes a single value as a continuous number, for example: 4.2. It should be used for parameters that are continuous in nature, for example distances where a value of '4.2' has some relationship to '4.1' and '4.3' because it is in between them. Continuous inputs have a "range" option which specifies the parameter's minimum and maximum allowed values.
+- **Categorical** - This describes a single value as a choice among a set of discrete options. It encodes this choice as an integer (whole number) starting with 0, but can be used to represent any categorical information. For example, you can use this input type to choose among a set of animals ['dog', 'cat', 'horse', 'zebra']. In this case the 'dog' will be represented as 0, the 'cat' as 1, etc., and the translation can be done in the model. This input type should be used for non-continuous categorical parameters, where different options don't have any continuous relationship to each other, for example where 'cat' has no relationship to 'dog' or 'horse' just because it is next to them in the list. Categorical inputs have a "num" option which specifies how many categories exist.
+- **Series** - This describes a list of categorical-type inputs - you can think of it as a 'series of options'. You can also think of it as a number whose base is the number of possible categories, and number of digits is the length of the series. For example, a series of 4 choices with 2 possible options can be thought of as a four digit binary number (0110), where each digit encodes the choice for that member of the series. This input type can be used with 'state-change' type problems where you have an array of items which can take on one of several different forms (for example a facade designs where each facade element can be on of 3 types). Series inputs have three options - "length" sets the length of the series, "depth" sets the number of options, and "mutationRate" sets how much of the series is changed during each mutation (betwween 0 for no change, and 1.0 for complete change).
+- **Seqeunce** - This describes an ordered sequence of a list of items (also called a [permutation](https://en.wikipedia.org/wiki/Permutation)). The sequence is represented as a list of integers starting with 0 which indicate the position of the items (for example [2,1,0]). This input type can be used for solving sequencing problems such as the ['travelling salesman problem'](https://en.wikipedia.org/wiki/Travelling_salesman_problem) where a set of options must be executed in a certain order. Sequence inputs have two options - "length" sets the length of the sequence, and "mutationRate" sets how much of the sequence is changed during each mutation (betwween 0 for no change, and 1.0 for complete change).
 
 ## Output types
 
+When used with a GA algorithm, *Discover* can optimize for both objectives and constraints:
+
+- **Objective** - specifies a goal of the optimization - the output that the algorithm will either try to minimize or maximize during the optimization. Objectives have a "goal" option which specifies whether the value should be minimized ("min") or maximized ("max").
+- **Constraint** - specifices a particular condition that must be preserved in the model. Any designs which do not meet these conditions will be penalized in the selection process and will thus be less and less likely to occur in the design set. Constraints can be one of three types:
+  - "less than x" means that a working design needs to have the variable less than or equal to x
+  - "greater than x" means that a working design needs to have the variable greater than or equal to x
+  - "equals x" means that a working design needs to have the variable exactly equal to x
+
 ## Supported algorithms
+
+Currently *Discover* supports to algorithms:
+
+- **random** randomly creates and analyzes a set of designs. It has one option - "numPopulation" which specifies the number of designs that will be generated.
+- **GA** is a basic multi-objective evolutionary algorithm that applies concepts from evolutionary theory to create better performing designs over time by analyzing and breeding several 'generations' of designs. It takes the following options:
+  - "numGenerations" - specifies the number of generations the algorithm will create
+  - "numPopulation" - specifies the number of designs created in each generation
+  - "mutationRate" - sets the global mutation rate, which is the percentage of generated designs which will undergo random mutation (0.0 - 1.0). Higher values favor random exploration of the design space at the risk of a slower convergence on the optimal designs.
+  - "saveElites" - specifies the number of top-performing designs which will be carried over into the next generation without cross-over or mutation. This number must be less than "numPopulation". Lower values favor exploration at the risk of losing high-performing designs, while higher values favor exploitation of known good designs at the risk of diversity.
 
 ## License
 
