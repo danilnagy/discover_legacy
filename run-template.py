@@ -14,7 +14,6 @@ jobDescription = {
 		# { "name": "constraint1", "type": "constraint", "goal": "less than 1.0" }
 		# { "name": "constraint2", "type": "constraint", "goal": "greater than 0" }
 		# { "name": "constraint3", "type": "constraint", "goal": "equals 0.005" }
-
 		],
 	"algo": "GA",
 	"algoOptions": {
