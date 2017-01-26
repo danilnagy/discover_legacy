@@ -32,7 +32,7 @@ def init(jobName):
     os.makedirs(paths["job"] + "images")
     os.makedirs(paths["job"] + "lib")
 
-    for f in ["explorer.sh", "index.html", "lib\\d3.v3.js", "lib\\kung.js"]:
+    for f in ["explorer.bat", "index.html", "lib\\d3.v3.js", "lib\\kung.js"]:
         copyfile(paths["local"] + "src\\" + f, paths["job"] + f)
 
     meta = {"jobID": jobID}

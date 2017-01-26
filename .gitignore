@@ -1,4 +1,5 @@
 _*
+!__init__.py
 *.pyc
 *.3dmbak
 *.rhl
