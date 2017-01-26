@@ -25,7 +25,7 @@ To start using *Discover*, all you need is a local copy of this repository. If y
 The repository includes several example files which you can use to test Discover, or modify for your own projects. Each project must have as a minimum a `.gh` Grasshopper file which describes the parametric model, and a `.py` Python script which describes and runs the optimization job. In order for *Discover* to work, both of these files must stay in the main repository folder. The repository includes two template files, `template.gh` and `run-template.py` which you can use as a starting point for your own projects.
 
 These example files rely on a number of Grasshopper libraries which you must install before using the files. You can download the files from the linked websites (you will have to make an account) and follow instructions to install them on your computer:
-- [GHPython](http://www.food4rhino.com/app/ghpython) - (required) allows the Grasshopper file to communicate with *Discover*
+- [GHPython](http://www.food4rhino.com/app/ghpython) - (required) allows the Grasshopper file to communicate with *Discover* (version 0.5.1.0 tested with this release)
 - [Karamba](http://www.food4rhino.com/app/karamba) - (optional) structural FEA solver used in some example files
 
 ## 3. Setting up the model
