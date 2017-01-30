@@ -24,9 +24,11 @@ To start using *Discover*, all you need is a local copy of this repository. If y
 
 The repository includes several example files which you can use to test Discover, or modify for your own projects. Each project must have as a minimum a `.gh` Grasshopper file which describes the parametric model, and a `.py` Python script which describes and runs the optimization job. In order for *Discover* to work, both of these files must stay in the main repository folder. The repository includes two template files, `template.gh` and `run-template.py` which you can use as a starting point for your own projects.
 
-These example files rely on a number of Grasshopper libraries which you must install before using the files. You can download the files from the linked websites (you will have to make an account) and follow instructions to install them on your computer:
-- [GHPython](http://www.food4rhino.com/app/ghpython) - (required) allows the Grasshopper file to communicate with *Discover* (version 0.5.1.0 tested with this release)
-- [Karamba](http://www.food4rhino.com/app/karamba) - (optional) structural FEA solver used in some example files
+**Dependencies**
+
+- [Python 2.7](https://www.python.org/downloads/) - (required) *Discover* needs Python 2.7 to run, it will not work with Python 3 (version 2.7.13 tested with this release)
+- [GHPython](http://www.food4rhino.com/app/ghpython) - (required) Grasshopper library that allows the Grasshopper file to communicate with *Discover* (version 0.5.1.0 tested with this release)
+- [Karamba](http://www.food4rhino.com/app/karamba) - (optional) structural FEA solver for Grasshopper used in some example files
 
 ## 3. Setting up the model
 
@@ -102,9 +104,9 @@ Inside each job folder you will see a standard set of files that allow you to ex
 
 In the main folder you should see a file called `results.tsv`, which is the database of each design explored during the job. This is a spreadsheet document formatted with designs along the rows, and information about each design such as its unique ID, generation number, and all of it's inputs and outputs along the columns. The `.tsv` extension stands for 'tab separated values', meaning that values in different columns are separated by a 'tab' character. You can open this file directly in a text editor or spreadsheet editor like Microsoft Excel to look through the designs.
 
-Finally, each job folder also contains "index.html" file, which is used to launch the *Explore* interface. The file can be directly opened in the Firefox browser (by right-clicking and selecting Open with Firefox), or viewed in any browser using a local server. To make this easier, each job folder also contains a Bash script called `explorer.sh` which will automatically start a local server using Python, and launch *Explorer* in your default browser. If you do not have Bash installed, you can install [git](https://git-scm.com/downloads) which comes with a version of Bash.
+Finally, each job folder also contains "index.html" file, which is used to launch the *Explore* interface. The file can be directly opened in the Firefox browser (by right-clicking and selecting Open with Firefox), or viewed in any browser using a local server. To make this easier, each job folder also contains a Batch file called `explorer.bat` which will automatically start a local server using Python, and launch *Explorer* in your default browser.
 
-Start the *Explore* interface by either opening the `index.html` file in Firefox or double-clicking on the explorer.sh bash script. This should launch the interface in the web browser:
+Start the *Explore* interface by either opening the `index.html` file in Firefox or double-clicking on the explorer.bat file. This should launch the interface in the web browser:
 
 ![tutorial1-8](docs/tutorial1-8.png)
 
