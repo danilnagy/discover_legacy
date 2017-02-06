@@ -21,6 +21,7 @@ With the CAD model open, an optimization job is started by executing a Python sc
 ## 2. Dependencies
 
 - [Python 2.7](https://www.python.org/downloads/) - Discover is written entirely in Python 2.7. It does not rely on any external Python libraries, but Python 2.7 must be installed on your computer in order for it to run (version 2.7.13 was tested with this release). At this time Python 3 is not supported.
+- McNeel's [Rhino 3d](https://www.rhino3d.com/download) design software with Rhino plugin.
 - [GHPython](http://www.food4rhino.com/app/ghpython) - Grasshopper library that allows the Grasshopper file to communicate with *Discover* (version 0.5.1.0 tested with this release)
 - [Karamba](http://www.food4rhino.com/app/karamba) - (optional) structural FEA solver for Grasshopper used in some example files
 
@@ -38,15 +39,33 @@ If the version number starts with 2.7 (for example 2.7.10) you are good to go. I
 
 please follow the rest of these instructions to install Python 2.7 on your computer.
 
-1. Go to https://www.python.org/downloads/ and click on the latest version of Python 2.7 to download the installation file to your computer.
+First, go to https://www.python.org/downloads/ and click on the latest version of Python 2.7 to download the installation file to your computer.
 
 ![python](docs/python02.png)
 
-2. Run the installer. You can keep all the default settings, but when you get to the second screen ('Customize Python 2.7.X') make sure that you enable the setting to 'Add python.exe to Path' (see screenshot below) by changing the 'X' to 'Will be installed on local hard drive'.
+Now run the installer. You can keep all the default settings, but when you get to the second screen ('Customize Python 2.7.X') make sure that you enable the setting to 'Add python.exe to Path' (see screenshot below) by changing the 'X' to 'Will be installed on local hard drive'. This tells the computer where to find the Python executible when you run Python programs.
+
+![python](docs/python03.png)
+
+Python 2.7 should now be installed on your computer. You can follow the instructions above to try to run it through the Command Prompt to make sure everything installed correctly. If it doesn't work you can use the installation file to remove Python and try installing again.
 
 ### 2.2 - Installing GHPython
 
-TK
+GHPython is an external plugin for Grasshopper that allows you to work with Python code directly in Grasshopper by embedding code in special 'Python' nodes. *Discover* uses these nodes to embed special Python code in each Grasshopper design file that lets it communicate with the optimization engine. Unfortunately the GHPython library does not come pre-installed with Grasshopper and must be download and installed separately. Luckily this is very easy to do:
+
+First go to http://www.food4rhino.com/app/ghpython and download the latest stable version (you will need to create a free account to download the file). At the time of this writing 0.5.1.0 was the latest version and has been tested to work with all the examples in the class. You can also find this version of the library directly in this repo: https://github.com/danilnagy/discover/blob/master/utils/ghpython.gha
+
+The library is contained in a single file called ghpython.gha. Once this file is downloaded, right click on it and go to properties. If there is a button or a checkbox in the properties window that says ‘Unblock’, check it or click on it to disable the blocking so that Grasshopper can see the file.
+
+![python](docs/python04.png)
+
+To load the library into Grasshopper you need to put this file into a special ‘Components’ folder where all the libraries are kept. The easiest way to find this folder is to launch Grasshopper and from the menu go to File -> Special Folders -> Components Folder. Now copy and paste the ghpython.gha file into this folder.
+
+![python](docs/python05.png)
+
+To see the GHPython node you need to restart Grasshopper either by restarting Rhino or typing the GrasshopperUnloadPlugin command in Rhino to shut down Grasshopper and then restart it. If you just close the Grasshopper window it only hides it and does not actually shut it down.
+
+### 2.3 - Getting the repo
 
 Once you have installed the dependencies, all you need to run *Discover* is a local copy of this repository. If you are familiar with GitHub, you can fork this repository and clone it to a local folder of your choice. If you don't want to use Github you can simply download the repository by clicking on the green "Clone or download" button above and clicking on "Download ZIP". Then unzip the files to a local folder of your choice.
 
