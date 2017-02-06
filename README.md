@@ -38,7 +38,11 @@ If the version number starts with 2.7 (for example 2.7.10) you are good to go. I
 
 please follow the rest of these instructions to install Python 2.7 on your computer.
 
+1. Go to https://www.python.org/downloads/ and click on the latest version of Python 2.7 to download the installation file to your computer.
 
+![python](docs/python02.png)
+
+2. Run the installer. You can keep all the default settings, but when you get to the second screen ('Customize Python 2.7.X') make sure that you enable the setting to 'Add python.exe to Path' (see screenshot below) by changing the 'X' to 'Will be installed on local hard drive'.
 
 ### 2.2 - Installing GHPython
 
