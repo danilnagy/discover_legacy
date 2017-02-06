@@ -33,7 +33,10 @@ def init(jobName):
     os.makedirs(paths["job"] + "lib")
 
     for f in ["explorer.bat", "index.html", "lib\\d3.v3.js", "lib\\kung.js"]:
-        copyfile(paths["local"] + "src\\" + f, paths["job"] + f)
+        try:
+            copyfile(paths["local"] + "src\\" + f, paths["job"] + f)
+        except IOError:
+            print f, "file not copied due to permissions! Please copy and paste manually into the job folder."
 
     meta = {"jobID": jobID}
 
