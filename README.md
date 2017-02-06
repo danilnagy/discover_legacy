@@ -20,18 +20,18 @@ With the CAD model open, an optimization job is started by executing a Python sc
 
 ## 2. Dependencies
 
-- [Python 2.7](https://www.python.org/downloads/) - Discover is written entirely in Python 2.7. It does not rely on any external Python libraries, but Python 2.7 must be installed on your computer in order for it to run (version 2.7.13 was tested with this release). At this time Python 3 is not supported.
-- McNeel's [Rhino 3d](https://www.rhino3d.com/download) design software with Rhino plugin.
+- [Python 2.7](https://www.python.org/downloads/) - Discover is written entirely in Python 2.7. It does not rely on any external Python libraries, but Python 2.7 must be installed on your computer in order for it to run (versions through 2.7.13 have been tested with this release). At this time Python 3 is not supported.
+- McNeel's [Rhino 3d](https://www.rhino3d.com/download) design software with [Grasshopper](http://www.grasshopper3d.com/) plugin.
 - [GHPython](http://www.food4rhino.com/app/ghpython) - Grasshopper library that allows the Grasshopper file to communicate with *Discover* (version 0.5.1.0 tested with this release)
 - [Karamba](http://www.food4rhino.com/app/karamba) - (optional) structural FEA solver for Grasshopper used in some example files
 
 ### 2.1 - Installing Python
 
-You can check if your computer has Python by launching a Command Prompt window, typing in "python" (without quotes), and hitting enter to execute the commond. You can find the Command Prompt by going to the start menu and typing in "Command Prompt" or "cmd" in the search field. If you have Python installed you should see it launch the Python interpreter, display the version of Python, and end with a ">>>" line where you can start typing Python code:
+You can check if your computer has Python by launching a Command Prompt window, typing in "python" (without quotes), and hitting enter to execute the command. You can find the Command Prompt by going to the start menu and typing in "Command Prompt" or "cmd" in the search field. If you have Python installed you should see Python start, show its version, and display a line beginning with ">>>" where you can start typing Python code:
 
 ![python](docs/python01.png)
 
-If the version number starts with 2.7 (for example 2.7.10) you are good to go. If the version number starts with 3, or the terminal window says something like 
+If the version number starts with 2.7 (for example 2.7.10 above) you are good to go. If the version number starts with 3, or the terminal window says something like 
 
 ```
 'python' is not recognized as an internal or external command, operable program or batch file.
@@ -51,9 +51,11 @@ Python 2.7 should now be installed on your computer. You can follow the instruct
 
 ### 2.2 - Installing GHPython
 
-GHPython is an external plugin for Grasshopper that allows you to work with Python code directly in Grasshopper by embedding code in special 'Python' nodes. *Discover* uses these nodes to embed special Python code in each Grasshopper design file that lets it communicate with the optimization engine. Unfortunately the GHPython library does not come pre-installed with Grasshopper and must be download and installed separately. Luckily this is very easy to do:
+GHPython is an external plugin for Grasshopper that allows you to work with Python code directly in Grasshopper by embedding code in special 'Python' nodes. *Discover* uses these nodes to allow Grasshopper models to communicate with the optimization engine. Unfortunately the GHPython library does not come pre-installed with Grasshopper and must be download and installed separately. Luckily this is very easy to do:
 
-First go to http://www.food4rhino.com/app/ghpython and download the latest stable version (you will need to create a free account to download the file). At the time of this writing 0.5.1.0 was the latest version and has been tested to work with all the examples in the class. You can also find this version of the library directly in this repo: https://github.com/danilnagy/discover/blob/master/utils/ghpython.gha
+First go to http://www.food4rhino.com/app/ghpython and download the latest stable version (you will need to create a free account to download the file). At the time of this writing 0.5.1.0 was the latest version and has been tested to work with *Discover*. You can also find this version of the library in the `/utils` folder of this repo: 
+
+https://github.com/danilnagy/discover/blob/master/utils/ghpython.gha
 
 The library is contained in a single file called ghpython.gha. Once this file is downloaded, right click on it and go to properties. If there is a button or a checkbox in the properties window that says ‘Unblock’, check it or click on it to disable the blocking so that Grasshopper can see the file.
 
