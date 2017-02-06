@@ -24,11 +24,23 @@ With the CAD model open, an optimization job is started by executing a Python sc
 - [GHPython](http://www.food4rhino.com/app/ghpython) - Grasshopper library that allows the Grasshopper file to communicate with *Discover* (version 0.5.1.0 tested with this release)
 - [Karamba](http://www.food4rhino.com/app/karamba) - (optional) structural FEA solver for Grasshopper used in some example files
 
-### 2.1 Installing Python
+### 2.1 - Installing Python
 
-TK
+You can check if your computer has Python by launching a Command Prompt window, typing in "python" (without quotes), and hitting enter to execute the commond. You can find the Command Prompt by going to the start menu and typing in "Command Prompt" or "cmd" in the search field. If you have Python installed you should see it launch the Python interpreter, display the version of Python, and end with a ">>>" line where you can start typing Python code:
 
-### 2.2 Installing GHPython
+![python](docs/python01.png)
+
+If the version number starts with 2.7 (for example 2.7.10) you are good to go. If the version number starts with 3, or the terminal window says something like 
+
+```
+'python' is not recognized as an internal or external command, operable program or batch file.
+```
+
+please follow the rest of these instructions to install Python 2.7 on your computer.
+
+
+
+### 2.2 - Installing GHPython
 
 TK
 
