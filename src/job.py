@@ -36,6 +36,9 @@ def runGA(inputsDef, outputsDef, algoOptions, jobOptions, paths, meta):
 	header = []
 	header.append("id")
 	header.append("generation")
+	header.append("parent1")
+	header.append("parent2")
+	# header.append("elite")
 
 	if usingConstraints:
 		header.append("feasible")
@@ -81,6 +84,8 @@ def runGA(inputsDef, outputsDef, algoOptions, jobOptions, paths, meta):
 
 		print "Computing designs for generation", str(g), "..."
 
+		# designData = []
+
 		# for each design, calculate output metrics
 		for des in population:
 
@@ -93,9 +98,12 @@ def runGA(inputsDef, outputsDef, algoOptions, jobOptions, paths, meta):
 			
 			# write results file
 			with open(paths["results"], 'a') as f:
-				d = [des.get_id(),des.get_genNum()]
+				d = [des.get_id(),des.get_genNum()] + des.get_parents()
 				if usingConstraints:
 					d.append(des.get_feasibility())
+
+				# designData.append(d + printFormat(des.get_inputs(), inputsDef) + outputs)
+
 				f.write("\n" + "\t".join([str(x) for x in (d + printFormat(des.get_inputs(), inputsDef) + outputs)]))
 
 		# compute ranking for population (higher value is better performance)
@@ -120,6 +128,8 @@ def runGA(inputsDef, outputsDef, algoOptions, jobOptions, paths, meta):
 			for i, eliteNum in enumerate(elites):
 				child = Design(g+1, i, idNum)
 				child.set_inputs(population[eliteNum].get_inputs())
+				child.set_elite()
+				child.set_parents(population[eliteNum].get_id(), None)
 				children.append(child)
 				idNum += 1
 
@@ -172,6 +182,7 @@ def runGA(inputsDef, outputsDef, algoOptions, jobOptions, paths, meta):
 
 			child = population[parents[0]].crossover(population[parents[1]], inputsDef, g+1, childNum, idNum)
 			child.mutate(inputsDef, mutationRate)
+			child.set_parents(population[parents[0]].get_id(), population[parents[1]].get_id())
 
 			if not checkDuplicates(child, children):
 				children.append(child)

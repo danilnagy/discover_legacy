@@ -87,6 +87,8 @@ class Design:
         self.feasible = True
         self.penalty = 0
         self.rank = 0
+        self.parents = [None, None]
+        self.elite = 0
 
     def get_id(self):
         return self.id
@@ -142,6 +144,18 @@ class Design:
 
     def get_rank(self):
         return self.rank
+
+    def set_parents(self, p1, p2):
+        self.parents = [p1, p2]
+
+    def get_parents(self):
+        return self.parents
+
+    def set_elite(self):
+        self.elite = 1
+
+    def get_elite(self):
+        return self.elite
     
     def crossover(self, partner, inputsDef, genNum, desNum, idNum):
         child = Design(genNum, desNum, idNum)
@@ -290,13 +304,18 @@ def rank(population, outputsDef, g, numGenerations, usingConstraints):
             distances[sortedDesigns[0]['id']] += float("inf")
             distances[sortedDesigns[-1]['id']] += float("inf")
 
-            # min/max objective values for normalization
-            f_min = sortedDesigns[0]['scores'][score]
-            f_max = sortedDesigns[-1]['scores'][score]
+            if len(sortedDesigns) > 2:
 
-            # for all interior designs, calculate distance between neighbors
-            for i, des in enumerate(sortedDesigns[1:-1]):
-                distances[des['id']] += (sortedDesigns[i+2]['scores'][score] - sortedDesigns[i]['scores'][score]) / (f_max - f_min)
+                # print "computing interior", len(sortedDesigns)-2, "designs"
+
+                # min/max objective values for normalization
+                f_min = sortedDesigns[0]['scores'][score]
+                f_max = sortedDesigns[-1]['scores'][score]
+
+                if f_min < f_max:
+                    # for all interior designs, calculate distance between neighbors
+                    for i, des in enumerate(sortedDesigns[1:-1]):
+                        distances[des['id']] += (sortedDesigns[i+2]['scores'][score] - sortedDesigns[i]['scores'][score]) / (f_max - f_min)
 
     ranking.reverse()
 

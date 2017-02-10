@@ -1,7 +1,7 @@
 from src import job
 
 jobDescription = {
-	"jobName": "chair",
+	"jobName": "chair-constrained",
 	"inputsDef": [
 		{ "name": "code1", "type": "series", "length": 4, "depth": 4, "mutationRate": 0.5},
 		{ "name": "h1-1", "type": "continuous", "range": [0,1]},
@@ -19,7 +19,7 @@ jobDescription = {
 		{ "name": "displacement", "type": "objective", "goal": "min"},
 		{ "name": "material", "type": "objective", "goal": "min"},
 		{ "name": "large members", "type": "objective", "goal": "min"},
-		{ "name": "number of kinks", "type": "constraint", "goal": "equals 0"}
+		# { "name": "number of kinks", "type": "constraint", "goal": "equals 0"}
 		],
 	"algo": "GA",
 	"algoOptions": {
@@ -29,7 +29,7 @@ jobDescription = {
 		"saveElites": 5
 		},
 	"jobOptions": {
-		"screenshots": False
+		"screenshots": True
 		}
 	}
 
