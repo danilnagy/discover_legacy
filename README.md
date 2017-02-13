@@ -22,7 +22,7 @@ With the CAD model open, an optimization job is started by executing a Python sc
 
 - [Python 2.7](https://www.python.org/downloads/) - Discover is written entirely in Python 2.7. It does not rely on any external Python libraries, but Python 2.7 must be installed on your computer in order for it to run (versions through 2.7.13 have been tested with this release). At this time Python 3 is not supported.
 - McNeel's [Rhino 3d](https://www.rhino3d.com/download) design software with [Grasshopper](http://www.grasshopper3d.com/) plugin.
-- [GHPython](http://www.food4rhino.com/app/ghpython) - Grasshopper library that allows the Grasshopper file to communicate with *Discover* (version 0.5.1.0 tested with this release)
+- [GHPython](http://www.food4rhino.com/app/ghpython) - Grasshopper library that allows the Grasshopper file to communicate with *Discover* (version 0.6.0.3 was tested with this release)
 - [Karamba](http://www.food4rhino.com/app/karamba) - (optional) structural FEA solver for Grasshopper used in some example files
 
 ### 2.1 - Installing Python
@@ -53,7 +53,7 @@ Python 2.7 should now be installed on your computer. You can follow the instruct
 
 GHPython is an external plugin for Grasshopper that allows you to work with Python code directly in Grasshopper by embedding code in special 'Python' nodes. *Discover* uses these nodes to allow Grasshopper models to communicate with the optimization engine. Unfortunately the GHPython library does not come pre-installed with Grasshopper and must be download and installed separately. Luckily this is very easy to do:
 
-First go to http://www.food4rhino.com/app/ghpython and download the latest stable version (you will need to create a free account to download the file). At the time of this writing 0.5.1.0 was the latest version and has been tested to work with *Discover*. You can also find this version of the library in the `/utils` folder of this repo: 
+First go to http://www.food4rhino.com/app/ghpython and download the latest stable version (you will need to create a free account to download the file). At the time of this writing 0.6.0.3 was the latest version and has been tested to work with *Discover*. You can also find this version of the library in the `/utils` folder of this repo: 
 
 https://github.com/danilnagy/discover/blob/master/utils/ghpython.gha
 
