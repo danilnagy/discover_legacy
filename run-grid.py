@@ -10,8 +10,8 @@ jobDescription = {
 		],
 	"algo": "GA",
 	"algoOptions": {
-		"numGenerations": 5,
-		"numPopulation": 5,
+		"numGenerations": 25,
+		"numPopulation": 25,
 		"mutationRate": 0.05,
 		"saveElites": 1
 		},
