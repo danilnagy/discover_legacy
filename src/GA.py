@@ -183,6 +183,7 @@ class Design:
             elif inputsDef[i]["type"] == "categorical":
                 # coin flip
                 childInputs.append( self.get_inputs()[i] if random.random() > 0.5 else partner.get_inputs()[i] )
+                
             elif inputsDef[i]["type"] == "series":
                 # coin flip on each value of series
                 a = self.get_inputs()[i]

@@ -3,10 +3,9 @@ from src import job
 jobDescription = {
 	"jobName": "untitled",
 	"inputsDef": [
-		# { "name": "input1", "type": "continuous", "range": [0,10]},
-		# { "name": "input2", "type": "categorical", "num": 5},
-		# { "name": "input3", "type": "series", "length": 25, "depth": 3, "mutationRate": 0.5},
-		# { "name": "input4", "type": "sequence", "length": 10, "mutationRate": 0.3}
+		# { "name": "input1", "type": "continuous", "range": [0,10], "length": 1, "mutationRate": 1.0},
+		# { "name": "input2", "type": "categorical", "num": 5, "length": 1, "mutationRate": 1.0},
+		# { "name": "input4", "type": "sequence", "length": 10, "mutationRate": 0.5}
 		],
 	"outputsDef": [
 		# { "name": "objective1", "type": "objective", "goal": "min"},

@@ -74,13 +74,13 @@ def printFormat(data, inputsDef):
 def create_input(inputsDef):
 
     if inputsDef["type"] == "continuous":
-        return remap(random.random(), 0, 1, inputsDef["range"][0], inputsDef["range"][1])
+        return [remap(random.random(), 0, 1, inputsDef["range"][0], inputsDef["range"][1]) for x in range(inputsDef["length"])]
 
     elif inputsDef["type"] == "categorical":
-        return int(math.floor(random.random() * inputsDef["num"]))
+        return [int(math.floor(random.random() * inputsDef["num"])) for x in range(inputsDef["length"])]
 
-    elif inputsDef["type"] == "series":
-        return [int(math.floor(random.random() * inputsDef["depth"])) for x in range(inputsDef["length"])]
+    # elif inputsDef["type"] == "series":
+    #     return [int(math.floor(random.random() * inputsDef["depth"])) for x in range(inputsDef["length"])]
 
     elif inputsDef["type"] == "sequence":
         seq = range(inputsDef["length"])
@@ -131,12 +131,27 @@ def parseJobDescription(jobDescription):
     # test for input types
     for _i in inputsDef:
         try:
-            if _i["type"] not in ["continuous", "categorical", "series", "sequence"]:
+            if _i["type"] not in ["continuous", "categorical", "sequence"]:
                 print "error:", _i["type"], "input type not supported"
                 return
         except KeyError:
             print "error: please specify input type(s)"
             return
+
+        try:
+            if type(_i["length"]) is not int:
+                print "error: input length must be integer"
+                    return
+        except KeyError:
+            _i["length"] = defaultOption("input length", 1)
+
+        try:
+            if type(_i["mutationRate"]) is not float:
+                print "error: mutation rate must be float"
+                    return
+        except KeyError:
+            _i["mutationRate"] = defaultOption("mutation rate", 1.0)
+
 
     # test for output types and parse output format
 
