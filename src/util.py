@@ -149,6 +149,7 @@ def parseJobDescription(jobDescription):
                 if _o["type"] == "objective":
                     if _o["goal"] not in ["min", "max"]:
                         print "error:", _o["goal"], "is not a supported goal of output type", _o["type"]
+                        return
                 if _o["type"] == "constraint":
                     goal = _o["goal"].split(" ")
                     goal_def = " ".join(goal[:-1])
