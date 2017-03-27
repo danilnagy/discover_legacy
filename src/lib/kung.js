@@ -11,11 +11,13 @@ function getDominantSet(data){
 		}
 	})
 
-	// console.log(keys);
 
 	P = data.sort(function(a, b) {
 	    return parseFloat(a[keys[0]]) - parseFloat(b[keys[0]]);
 	});
+	if (keys[0].indexOf("[min]") == -1){
+		P.reverse()
+	}
 
 	// console.log(keys);
 

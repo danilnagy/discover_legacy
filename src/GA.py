@@ -275,6 +275,8 @@ def rank(population, outputsDef, g, numGenerations, usingConstraints):
 
     objectiveGoals = [x["goal"] for x in outputsDef if x["type"] == "objective"]
 
+    print "objective goals:", objectiveGoals
+
     validSet = [x for x in designs if len(x['scores']) == len(objectiveGoals)]
 
     dom = []
@@ -355,6 +357,6 @@ def testRanking():
         {'id': 12, 'scores': [4, 0]},
         ]
 
-    print rank(performance, outputsDef)
+    print rank(performance, outputsDef, 0, 0, False)
 
 # testRanking()

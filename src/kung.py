@@ -13,6 +13,8 @@ def getDominantSet(data, objectiveGoals):
 	# multi-objective ranking
 	else:
 		P = sorted(data, key = lambda x: x['scores'][0])
+		if objectiveGoals[0] == "max":
+			P.reverse()
 		return front(P, objectiveGoals)
 
 def front(P, objectiveGoals):
