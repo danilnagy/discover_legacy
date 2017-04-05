@@ -90,6 +90,7 @@ def runGA(inputsDef, outputsDef, algoOptions, jobOptions, paths, meta):
 		for des in population:
 
 			meta, outputs = computeDesign(des.get_id(), des.get_inputs(), jobOptions, paths, meta)
+			# print outputs
 			if outputs is None:
 				return "model unresponsive"
 			des.set_outputs(outputs, outputsDef, usingConstraints)

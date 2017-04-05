@@ -12,9 +12,16 @@ def getDominantSet(data, objectiveGoals):
 
 	# multi-objective ranking
 	else:
-		P = sorted(data, key = lambda x: x['scores'][0])
-		if objectiveGoals[0] == "max":
-			P.reverse()
+
+		def keyfunc(x):
+			fac = [(obj == "min") * 2 - 1 for obj in objectiveGoals]
+			keys = [x['scores'][i] * fac[i] for i in range(len(x['scores']))]
+			return tuple(keys)
+
+		P = sorted(data, key = keyfunc)
+		# P = sorted(data, key = lambda x: x['scores'][0])
+		# if objectiveGoals[0] == "max":
+			# P.reverse()
 		return front(P, objectiveGoals)
 
 def front(P, objectiveGoals):

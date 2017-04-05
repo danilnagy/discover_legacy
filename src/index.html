@@ -363,7 +363,6 @@ function runAll(imageTooltip) {
                     data[j][listKeys[i]] = processBinary(data[j][listKeys[i]], listKeys[i]);
                 }
                 else if (listKeys[i].indexOf("[seq") == 0) {
-                    console.log(data[j][listKeys[i]])
                     data[j][listKeys[i]] = processPermutation(data[j][listKeys[i]], listKeys[i]);
                 }
             }
@@ -413,8 +412,6 @@ function runAll(imageTooltip) {
             dataSplit.True = [];
         }
 
-        console.log(dataSplit)
-
         var headerNames = allKeys.filter(function(key){ return key.indexOf("[in]") !== -1 || key.indexOf("[ser") !== -1 || key.indexOf("[seq") !== -1 || key.indexOf("[min]") !== -1 || key.indexOf("[max]") !== -1 || key.indexOf("generation") !== -1 || key.indexOf("id") !== -1 });
 
         var xCat = headerNames[headerNames.length-2],
@@ -428,7 +425,6 @@ function runAll(imageTooltip) {
             .append("p")
             .attr("class", "option")
             .on("click", function(d, i) {
-                console.log(i);
                 xCat = d;
                 update();
             })
@@ -441,7 +437,6 @@ function runAll(imageTooltip) {
             .attr("class", "option")
             .text(function(d) { return d; })
             .on("click", function(d) {
-                console.log(d);
                 yCat = d;
                 update();
             });
@@ -453,7 +448,6 @@ function runAll(imageTooltip) {
             .attr("class", "option")
             .text(function(d) { return d; })
             .on("click", function(d) {
-                console.log(d);
                 rCat = d;
                 updateDims();
                 updateCircleStyle();
@@ -467,7 +461,6 @@ function runAll(imageTooltip) {
             .attr("class", "option")
             .text(function(d) { return d; })
             .on("click", function(d) {
-                console.log(d);
                 colorCat = d;
                 updateDims();
                 updateCircleStyle();
@@ -733,14 +726,12 @@ function runAll(imageTooltip) {
 
         function selectDesign(id) {
             indx = selected.indexOf(id);
-            // console.log(indx);
             if ( indx > -1) {
                 selected.splice(indx, 1);
             }else{
                 selected.push(id);
             }
             updateSelectedList();
-            // console.log(selected);
             updateCircleStyle();
         };
 

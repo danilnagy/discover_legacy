@@ -244,6 +244,14 @@ def computeDesign(idNum, inputs, jobOptions, paths, meta):
 
     if os.path.isfile(paths["output"]):
         with open(paths["output"], 'r') as f:
+            # outputs = []
+
+            # for x in f.readlines():
+            #     try:
+            #         outputs.append(float(x.strip()))
+            #     except ValueError:
+            #         outputs.append(None)
+
             try:
                 outputs = [float(x.strip()) for x in f.readlines()]
             # catch issues with outputs and set outputs as None (will be ignored in ranking)
