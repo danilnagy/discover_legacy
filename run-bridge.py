@@ -18,6 +18,7 @@ jobDescription = {
 	"outputsDef": [
 		{ "name": "displacement", "type": "objective", "goal": "min"},
 		{ "name": "material", "type": "objective", "goal": "min"},
+		{ "name": "utilization", "type": "constraint", "goal": "less than 50.0"}
 		],
 	"algo": "GA",
 	"algoOptions": {
