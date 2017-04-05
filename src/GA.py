@@ -116,11 +116,11 @@ class Design:
                     goal_val = float(goal[-1])
 
                     if goal_def == "less than":
-                        if _o > goal_val:
+                        if _o >= goal_val:
                             self.penalty += 1
                             self.feasible = False
                     elif goal_def == "greater than":
-                        if _o < goal_val:
+                        if _o <= goal_val:
                             self.penalty += 1
                             self.feasible = False
                     elif goal_def == "equals":
