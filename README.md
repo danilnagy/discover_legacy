@@ -168,6 +168,16 @@ Along the bottom row are a series of buttons which are described below:
 - The three *Reset* buttons reset the selection for the color and size dimensions (in case you want to keep the color or size of circles in the scatter plot constant) as well as the pool of selected designs
 - *Export* - not currently implemented
 
+## 7. Restarting a job
+
+Due to the stochastic nature of the Genetic Algorithm, the process does not have any internal memory other than the designs in the last generation which the algorithm uses to create the designs of the following generation. Thus, if your model crashes and you wish to restart a job from where it left off, or you want to continue a previously completed job, you simply need to start a new job using the last generation of the previous job as its first generation.
+
+The `DOE` parameter allows you to change how the first generation of designs is generated for each job. By default, this is set to *random* to create the designs by randomly sampling from the input parameter space. However, you can also get the designs from a given generation of a previously run job. To do this you set the `DOE` parameter to a list with the first item being the name of the previously run job (this is the name of the job's folder in the main `discover` directory) and the second item being the generation you want to use. Setting this to `-1` will automatically use the last full generation created, in effect restarting the job from where it left off.
+
+![tutorial1-9](docs/tutorial1-9.png)
+
+When restarting a job, the *numPopulation* parameter as well as the input and output parameter types and ranges should be exactly the same between the two jobs. However, you can change the *numGenerations*, *mutationRate*, and *saveElites* parameters if you wish.
+
 ## Input types
 
 *Discover* is set up to handle different types of input data according to what is needed by the CAD model. Four types are currently implemented as described below, although more types can be integrated by providing the necessary operators for the GA algorithm (more documentation will be provided for this in the future).
