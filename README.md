@@ -103,7 +103,7 @@ This file shows the basic structure for specifying and running a job with Discov
 
 The template file contains example code for the different data types and options supported by Discover, which you can modify according to your project's needs. Let's modify this definition to specify three continuous input parameters for our box model, as well as two objectives for the surface area and volume of the box. In this case we want to minimize surface area while maximizing volume.
 
-![tutorial1-4](docs/tutorial1-4.png)
+![tutorial1-4](docs/tutorial1-4_2.png)
 
 Below the job definition are two lines of code that run the job in Discover. The first line uses the job description to generate a sample input file that can be used to test your Grasshopper setup. The second line runs the actual job. Both of these lines are commented out in the template file so nothing will run by default.
 
