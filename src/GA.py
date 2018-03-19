@@ -106,14 +106,20 @@ class Design:
         return self.inputs
 
     def set_outputs(self, outputs, outputsDef, usingConstraints):
-        if usingConstraints:
-            for i,_o in enumerate(outputs):
-                if outputsDef[i]["type"] == "objective":
+        
+        for i,_o in enumerate(outputs):
+            if usingConstraints:
+                if outputsDef[i]["type"] == "objective" and _o is not None:
                     self.objectives.append(_o)
                 elif outputsDef[i]["type"] == "constraint":
                     goal = outputsDef[i]["goal"].split(" ")
                     goal_def = " ".join(goal[:-1])
                     goal_val = float(goal[-1])
+
+                    if _o is None:
+                        self.penalty += 1
+                        self.feasible = False
+                        continue
 
                     if goal_def == "less than":
                         if _o >= goal_val:
@@ -127,8 +133,9 @@ class Design:
                         if _o != goal_val:
                             self.penalty += 1
                             self.feasible = False
-        else:
-            self.objectives = outputs
+            else:
+                if _o is not None:
+                    self.objectives.append(_o)
 
     def get_objectives(self):
         return self.objectives
@@ -191,8 +198,8 @@ class Design:
                 childInputs.append( newSeries )
             elif inputsDef[i]["type"] == "sequence":
 
-                print "genes [", self.get_desNum(), "] :", self.get_inputs()[i]
-                print "genes [", partner.get_desNum(), "] :", partner.get_inputs()[i]
+                # print "genes [", self.get_desNum(), "] :", self.get_inputs()[i]
+                # print "genes [", partner.get_desNum(), "] :", partner.get_inputs()[i]
 
                 a = permutation2inversion(self.get_inputs()[i])
                 b = permutation2inversion(partner.get_inputs()[i])
@@ -218,7 +225,7 @@ class Design:
                 newSequence = inversion2permutation([a[j] if random.random() > 0.5 else b[j] for j in range(len(a))])
 
                 childInputs.append( newSequence )
-                print "genes [", child.get_desNum(), "] :", newSequence
+                # print "genes [", child.get_desNum(), "] :", newSequence
 
         child.set_inputs(childInputs)
         
@@ -263,7 +270,7 @@ class Design:
                         newSequence[choice1] = val2
                     mutation = newSequence
 
-                print "mutation: ", self.desNum, "/", str(i), ":", self.inputs[i], "->", mutation
+                # print "mutation: ", self.desNum, "/", str(i), ":", self.inputs[i], "->", mutation
                 self.inputs[i] = mutation
 
 
@@ -275,9 +282,11 @@ def rank(population, outputsDef, g, numGenerations, usingConstraints):
 
     objectiveGoals = [x["goal"] for x in outputsDef if x["type"] == "objective"]
 
-    print "objective goals:", objectiveGoals
+    # print "objective goals:", objectiveGoals
 
     validSet = [x for x in designs if len(x['scores']) == len(objectiveGoals)]
+
+    # print len(validSet)
 
     dom = []
     ranking = []

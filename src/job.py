@@ -1,6 +1,6 @@
 from GA import Design, rank
 from util import *
-
+import csv, json
 
 def run(jobDescription):
 
@@ -23,7 +23,7 @@ def run(jobDescription):
 		if error is not None:
 			print "error:", error
 
-	cleanup(paths["local"])
+	# cleanup(paths["local"])
 
 
 def runGA(inputsDef, outputsDef, algoOptions, jobOptions, paths, meta):
@@ -57,6 +57,7 @@ def runGA(inputsDef, outputsDef, algoOptions, jobOptions, paths, meta):
 		f.write("\t".join(header))
 
 	# load options
+	DOE = algoOptions["DOE"]
 	numGenerations = algoOptions["numGenerations"]
 	numPopulation = algoOptions["numPopulation"]
 	mutationRate = algoOptions["mutationRate"]
@@ -73,12 +74,42 @@ def runGA(inputsDef, outputsDef, algoOptions, jobOptions, paths, meta):
 
 	print "Setting initial population..."
 
-	# set random inputs for first generation
-	for des in population:
-		newInputs = []
-		for _i in inputsDef:
-			newInputs.append(create_input(_i))
-		des.set_inputs(newInputs)
+	if DOE is "random":
+		print "...with random DOE"
+		# set random inputs for first generation
+		for des in population:
+			newInputs = []
+			for _i in inputsDef:
+				newInputs.append(create_input(_i))
+			des.set_inputs(newInputs)
+	else:
+		dirName = DOE[0]
+		genNum = DOE[1]
+
+		with open(dirName + "\\results.tsv", 'rb') as f:
+			reader = csv.reader(f, delimiter='\t', quotechar='"')
+			data = list(reader)
+
+		header = data.pop(0)
+
+		if genNum < 0:
+			lastGen = int(data[-1][1])
+
+			if len([d for d in data if int(d[1]) == lastGen]) < numPopulation:
+				lastGen -= 1
+			
+			if len([d for d in data if int(d[1]) == lastGen]) < numPopulation:
+				return "DOE does not match population size"
+
+			genNum = lastGen + (genNum + 1)
+
+		print "...with DOE from generation {} in run '{}'".format(genNum, DOE[0])
+
+		indx = [x for x in range(len(header)) if "[in]" in header[x] or "[ser" in header[x] or "[seq" in header[x]]
+		genSet = [[json.loads(d[i]) for i in indx] for d in data if int(d[1]) == genNum]
+
+		for i, des in enumerate(population):
+			des.set_inputs(genSet[i])
 
 	for g in range(numGenerations):
 
@@ -109,9 +140,9 @@ def runGA(inputsDef, outputsDef, algoOptions, jobOptions, paths, meta):
 
 		# compute ranking for population (higher value is better performance)
 		ranking, crowding, penalties = rank(population, outputsDef, g, numGenerations, usingConstraints)
-		print "Generation ranking:", ranking
-		if len(outputsDef) > 1:
-			print "Generation crowding:", [float("%.2f" % distance) for distance in crowding]
+		# print "Generation ranking:", ranking
+		# if len(outputsDef) > 1:
+			# print "Generation crowding:", [float("%.2f" % distance) for distance in crowding]
 
 		# create new empty list of children
 		children = []
@@ -123,7 +154,7 @@ def runGA(inputsDef, outputsDef, algoOptions, jobOptions, paths, meta):
 		if saveElites > 0:
 			# get elites from sorted list of ranking and crowding
 			elites = [i[0] for i in sorted(enumerate(stats), key=lambda x: (x[1][0], -x[1][1], -x[1][2]))][:saveElites]
-			print "elite(s):", elites
+			# print "elite(s):", elites
 
 			# add elites to next generation
 			for i, eliteNum in enumerate(elites):
@@ -172,14 +203,14 @@ def runGA(inputsDef, outputsDef, algoOptions, jobOptions, paths, meta):
 				candidates = [[x, stats[x]] for x in [candidate1, candidate2]]
 				standings = sorted( candidates, key=lambda x: (x[1][0], -x[1][1], -x[1][2]) )
 
-				print "tournament:", candidate1, "/", candidate2, "->", standings[0][0]
+				# print "tournament:", candidate1, "/", candidate2, "->", standings[0][0]
 
 				# add winner to parent set
 				parents.append(standings[0][0])
 				# add loser back to pool
 				pool.append(standings[1][0])
 
-			print "breeding:", parents, "->", childNum
+			# print "breeding:", parents, "->", childNum
 
 			child = population[parents[0]].crossover(population[parents[1]], inputsDef, g+1, childNum, idNum)
 			child.mutate(inputsDef, mutationRate)

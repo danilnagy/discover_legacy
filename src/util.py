@@ -182,7 +182,11 @@ def checkAlgoOptions(algo, jobDescription):
         try:
             algoOptions = jobDescription["algoOptions"]
         except KeyError:
-            algoOptions = defaultOption("algoOptions", {"numGenerations": 5, "numPopulation": 5, "mutationRate": 0.01, "saveElites": 1})
+            algoOptions = defaultOption("algoOptions", {"DOE": "random", "numGenerations": 5, "numPopulation": 5, "mutationRate": 0.01, "saveElites": 1})
+        try:
+            DOE = algoOptions["DOE"]
+        except KeyError:
+            algoOptions["DOE"] = defaultOption("DOE", "random")
         try:
             numGenerations = algoOptions["numGenerations"]
         except KeyError:
@@ -239,24 +243,25 @@ def computeDesign(idNum, inputs, jobOptions, paths, meta):
     start_time = time.time()
     while not os.path.exists(paths["output"]):
         time.sleep(.1)
-        if time.time() - start_time > 10.0:
-            return meta, None
+        # GET RID OF TIMEOUT
+        # if time.time() - start_time > 120.0:
+            # return meta, None
 
     if os.path.isfile(paths["output"]):
         with open(paths["output"], 'r') as f:
-            # outputs = []
+            outputs = []
 
-            # for x in f.readlines():
-            #     try:
-            #         outputs.append(float(x.strip()))
-            #     except ValueError:
-            #         outputs.append(None)
+            for x in f.readlines():
+                try:
+                    outputs.append(float(x.strip()))
+                except ValueError:
+                    outputs.append(None)
 
-            try:
-                outputs = [float(x.strip()) for x in f.readlines()]
-            # catch issues with outputs and set outputs as None (will be ignored in ranking)
-            except ValueError:
-                outputs = None
+            # try:
+            #     outputs = [float(x.strip()) for x in f.readlines()]
+            # # catch issues with outputs and set outputs as None (will be ignored in ranking)
+            # except ValueError:
+            #     outputs = None
 
 
         waiting = True
