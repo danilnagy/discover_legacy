@@ -25,12 +25,14 @@ jobDescription = {
 		"numGenerations": 100,
 		"numPopulation": 100,
 		"mutationRate": 0.05,
-		"saveElites": 5
+		"saveElites": 5,
+		"DOE": "random",
+		# "DOE": ["_job name_", -1],
 		},
 	"jobOptions": {
 		"screenshots": True
 		}
 	}
 
-# job.createInputFile(jobDescription)
-job.run(jobDescription)
+job.createInputFile(jobDescription)
+# job.run(jobDescription)

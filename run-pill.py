@@ -16,7 +16,9 @@ jobDescription = {
 		"numGenerations": 20,
 		"numPopulation": 20,
 		"mutationRate": 0.25,
-		"saveElites": 1
+		"saveElites": 1,
+		"DOE": "random",
+		# "DOE": ["_job name_", -1],
 		},
 	"jobOptions": {
 		"screenshots": True
